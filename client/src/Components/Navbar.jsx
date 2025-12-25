@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 
 function Navbar() {
   const location = useLocation()
   const itemRefs = useRef([])
+  const [hoveredIndex, setHoveredIndex] = useState(null)
 
   const navItems = [
     { label: 'Home', color: '#D8F3DC', href: '/' },
@@ -16,18 +17,27 @@ function Navbar() {
 
   useEffect(() => {
     const activeIndex = navItems.findIndex(item => item.href === location.pathname)
+    const expandedIndex = hoveredIndex !== null ? hoveredIndex : activeIndex
 
     itemRefs.current.forEach((ref, index) => {
       if (ref) {
-        const isActive = index === activeIndex
+        const isExpanded = index === expandedIndex
         gsap.to(ref, {
-          flexGrow: isActive ? 6 : 1,
-          duration: 0.5,
+          flexGrow: isExpanded ? 6 : 1,
+          duration: 0.4,
           ease: 'power2.out',
         })
       }
     })
-  }, [location.pathname])
+  }, [location.pathname, hoveredIndex])
+
+  const handleMouseEnter = (index) => {
+    setHoveredIndex(index)
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null)
+  }
 
   return (
     <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50 }}>
@@ -37,6 +47,8 @@ function Navbar() {
             key={item.label}
             ref={(el) => (itemRefs.current[index] = el)}
             href={item.href}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
             style={{
               flexGrow: item.href === location.pathname ? 6 : 1,
               flexBasis: 0,
