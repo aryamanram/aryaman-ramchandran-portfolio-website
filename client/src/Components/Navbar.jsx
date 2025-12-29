@@ -24,8 +24,8 @@ function Navbar() {
         const isExpanded = index === expandedIndex
         gsap.to(ref, {
           flexGrow: isExpanded ? 6 : 1,
-          duration: 0.4,
-          ease: 'power2.out',
+          duration: 0.5,
+          ease: 'power1.inOut',
         })
       }
     })
