@@ -1,0 +1,67 @@
+EDUCATION
+University of Illinois at Urbana-Champaign Master of Science in Computer Science (4.00 / 4.00)
+Champaign, IL
+Aug 2025 – Dec 2026
+Loyola Marymount University Bachelor of Science in Computer Science (3.94 / 4.00)
+Los Angeles, CA
+Aug 2020 – May 2024
+
+EXPERIENCE
+Software Engineer Intern May 2025 – Aug 2025
+Turiyam AI Bengaluru, India
+• Built Python CLI to package kernels/metadata into UUID-structured S3 folders and streamlined uploads via AWS SDK.
+• Implemented worker service that polled S3, claimed jobs, and updated state with in-progress/completed/failed metadata.
+• Automated lifecycle with results/error logging for transparent, reproducible workflows.
+• Developed PyTorch pipelines to synthesize large-scale kernel input datasets for stress-testing custom AI accelerators.
+
+Research Assistant Jan 2024 – May 2024
+Loyola Marymount University Los Angeles, CA
+• Prototyped CLI storytelling engine in Python integrating GPT-2/LLaMA via Transformers for agent planning and dialogue.
+• Fine-tuned models with PyTorch, PEFT, and LoRA while leveraging Accelerate for distributed/mixed-precision training.
+• Applied TRL (RLHF, preference optimization) to align agent behaviors and re-rank embeddings/reward models.
+• Orchestrated multi-agent flows with LangGraph/Chain, FSMs (transitions), and asyncio for turn-based NPC concurrency.
+• Persisted state using PostgreSQL, containerized experiments with Docker, and streamlined workflows with Typer.
+
+Software Engineer May 2022 – Aug 2022
+Gotham City LA Burbank, CA
+• Rebuilt public website with JavaScript, TypeScript, React, and TailwindCSS.
+• Designed Java + Express backend for nonprofit request tracking, with data surfaced via an admin portal.
+• Delivered MongoDB scheduling system managing ~50 employees across 20+ fundraising locations.
+
+Software Engineer Intern Aug 2021 – Dec 2021
+Electronic Arts (EA) Stockholm, Sweden
+• Optimized Battlefield 2042 rendering in C++ by profiling with Frostbite captures, PIX, SN Systems, Nsight, GPA, RGP,
+and RenderDoc, yielding a 3% framerate gain on Xbox/PlayStation under heavy memory load.
+• Engineered Madden 23 opponent AI with finite-state machines and rule-based systems in C++/C#, enabling dynamic
+offensive and defensive formation selection.
+
+Software Engineer Intern May 2021 – Aug 2021
+Inhabitr Chicago, IL
+• Built Python queries to interface with PostgreSQL database for user requests.
+• Restructured schema with 500+ SKUs to normalize product data and improve accessibility.
+• Reduced query complexity from brute-force O(n) scans to O(log n) indexed lookups, significantly improving performance.
+
+PROJECTS
+MTG CureAll Jun 2025 – Present
+• Built full-stack trading card app in Java/JavaScript with Amazon RDS/PostgreSQL managing 84k+ card records.
+• Integrated Scryfall API for image recognition and TCGPlayer API for real-time market price tracking.
+• Prototyped AI deck-building assistant using PyTorch, NumPy, and used GPT for natural language prompts.
+• Tracked ML experiments with MLflow/W&B to compare metrics and persist model artifacts for reproducibility.
+
+MovieTime Jan 2025 – Aug 2025
+• Built full-stack movie booking app with Java/JavaScript, Express, and MongoDB backend.
+• Integrated Clerk authentication and TMDB API for real-time movie listings.
+• Designed admin portal for movie management with live database updates.
+
+Pacman Battler Jan 2024 – May 2024
+• Built Python simulation framework where reinforcement learning agents competed using custom reward functions.
+• Implemented agent logic with finite-state machines and trained models using PyTorch + NumPy.
+• Applied RL evaluation techniques to benchmark win rates and refine through reward shaping and environment tuning.
+
+TECHNICAL SKILLS
+Languages: Python, C/C++, Java, SQL, Postgres, JavaScript, HTML/CSS
+Libraries / Software: PyTorch, NumPy, TensorFlow, AWS, Express, MongoDB, NodeJS, React, Git, Docker, Kubernetes, Postman
+
+Relevant Coursework:
+ML for Software Engineering, Applied Machine Learning, Distributed Systems, Database Systems, Parallel Programming, Natural
+Language Processing, Algorithms and Analysis, Deep Learning, Reinforcement Learning, Computer Graphics, Linear Algebra
