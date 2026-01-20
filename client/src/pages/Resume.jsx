@@ -1,6 +1,9 @@
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 import Navbar from "../Components/Navbar.jsx"
 
 const Resume = () => {
+  const containerRef = useRef(null)
   const education = [
     {
       school: "University of Illinois at Urbana-Champaign",
@@ -115,6 +118,20 @@ const Resume = () => {
     coursework: "ML for Software Engineering, Applied Machine Learning, Distributed Systems, Database Systems, Parallel Programming, Natural Language Processing, Algorithms and Analysis, Deep Learning, Reinforcement Learning, Computer Graphics, Linear Algebra",
   }
 
+  useEffect(() => {
+    const items = containerRef.current.querySelectorAll(".animate-item")
+
+    gsap.set(items, { opacity: 0, y: 30 })
+
+    gsap.to(items, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: "power2.out",
+    })
+  }, [])
+
   const sectionStyle = {
     marginBottom: "2rem",
   }
@@ -130,8 +147,8 @@ const Resume = () => {
   return (
     <>
       <Navbar />
-      <div style={{ paddingTop: "5rem", paddingLeft: "2rem", paddingRight: "2rem", maxWidth: "900px", margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+      <div ref={containerRef} style={{ paddingTop: "5rem", paddingLeft: "2rem", paddingRight: "2rem", maxWidth: "900px", margin: "0 auto" }}>
+        <div className="animate-item" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
           <h1 style={{ fontSize: "2.5rem", fontWeight: 700 }}>Resume</h1>
           <a
             href="/pdfs/Aryaman Ramchandran Resume.pdf"
@@ -149,7 +166,7 @@ const Resume = () => {
           </a>
         </div>
 
-        <section style={sectionStyle}>
+        <section className="animate-item" style={sectionStyle}>
           <h2 style={headingStyle}>Education</h2>
           {education.map((edu, index) => (
             <div key={index} style={{ marginBottom: "1rem" }}>
@@ -165,7 +182,7 @@ const Resume = () => {
           ))}
         </section>
 
-        <section style={sectionStyle}>
+        <section className="animate-item" style={sectionStyle}>
           <h2 style={headingStyle}>Experience</h2>
           {experience.map((exp, index) => (
             <div key={index} style={{ marginBottom: "1.5rem" }}>
@@ -186,7 +203,7 @@ const Resume = () => {
           ))}
         </section>
 
-        <section style={sectionStyle}>
+        <section className="animate-item" style={sectionStyle}>
           <h2 style={headingStyle}>Projects</h2>
           {projects.map((proj, index) => (
             <div key={index} style={{ marginBottom: "1.5rem" }}>
@@ -203,7 +220,7 @@ const Resume = () => {
           ))}
         </section>
 
-        <section style={sectionStyle}>
+        <section className="animate-item" style={sectionStyle}>
           <h2 style={headingStyle}>Technical Skills</h2>
           <p><strong>Languages:</strong> {skills.languages}</p>
           <p><strong>Libraries / Software:</strong> {skills.libraries}</p>
