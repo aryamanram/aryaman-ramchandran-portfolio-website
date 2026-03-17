@@ -1,12 +1,7 @@
-import Navbar from "../Components/Navbar.jsx"
-
-const Projects = () => {
+export default function Projects() {
   return (
-    <>
-      <Navbar />
-      <div>Projects</div>
-    </>
+    <div>
+      <h1>Projects</h1>
+    </div>
   )
 }
-
-export default Projects

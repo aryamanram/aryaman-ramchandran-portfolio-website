@@ -1,12 +1,7 @@
-import Navbar from "../Components/Navbar.jsx"
-
-const About = () => {
+export default function About() {
   return (
-    <>
-      <Navbar />
-      <div>About</div>
-    </>
+    <div>
+      <h1>About</h1>
+    </div>
   )
 }
-
-export default About

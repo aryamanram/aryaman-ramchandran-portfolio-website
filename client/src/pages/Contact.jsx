@@ -1,12 +1,7 @@
-import Navbar from "../Components/Navbar.jsx"
-
-const Contact = () => {
+export default function Contact() {
   return (
-    <>
-      <Navbar />
-      <div>Contact</div>
-    </>
+    <div>
+      <h1>Contact</h1>
+    </div>
   )
 }
-
-export default Contact
