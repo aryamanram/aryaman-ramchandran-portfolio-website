@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
 
 @font-face {
   font-family: 'Poppins';
@@ -28,8 +32,47 @@
   font-style: normal;
 }
 
+/* --- Design Tokens --- */
+@theme {
+  /* Background */
+  --color-bg: #FCFCFD;
+
+  /* Navbar / Dark Navy */
+  --color-navy: #1A2332;
+  --color-navy-light: #232F3E;
+  --color-navy-dark: #161D26;
+
+  /* Cards & Surfaces */
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F9FAFB;
+  --color-border: #E5E7EB;
+  --color-border-light: #F0F1F3;
+
+  /* Blues (lighter accents) */
+  --color-blue: #2563EB;
+  --color-blue-light: #DBEAFE;
+  --color-blue-muted: #EFF6FF;
+
+  /* Orange Accents (UIUC) */
+  --color-accent: #E84A27;
+  --color-accent-light: #FFF3EE;
+  --color-accent-hover: #D4421F;
+
+  /* Text */
+  --color-text: #111827;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
+  --color-text-inverse: #FFFFFF;
+
+  /* Fonts */
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
