@@ -1,0 +1,48 @@
+export const projects = [
+  {
+    id: 'mtg-cureall',
+    name: 'MTG CureAll',
+    date: 'Jun 2025 – Present',
+    description: 'Full-stack trading card app with AI deck-building assistant and real-time market tracking.',
+    tags: ['Java', 'JavaScript', 'PostgreSQL', 'PyTorch', 'AWS'],
+    bullets: [
+      'Built full-stack trading card app in Java/JavaScript with Amazon RDS/PostgreSQL managing 84k+ card records.',
+      'Integrated Scryfall API for image recognition and TCGPlayer API for real-time market price tracking.',
+      'Prototyped AI deck-building assistant using PyTorch, NumPy, and used GPT for natural language prompts.',
+      'Tracked ML experiments with MLflow/W&B to compare metrics and persist model artifacts for reproducibility.',
+    ],
+    github: null,
+    demo: null,
+    featured: true,
+  },
+  {
+    id: 'movietime',
+    name: 'MovieTime',
+    date: 'Jan 2025 – Aug 2025',
+    description: 'Full-stack movie booking app with authentication and real-time movie listings.',
+    tags: ['Java', 'JavaScript', 'Express', 'MongoDB', 'React'],
+    bullets: [
+      'Built full-stack movie booking app with Java/JavaScript, Express, and MongoDB backend.',
+      'Integrated Clerk authentication and TMDB API for real-time movie listings.',
+      'Designed admin portal for movie management with live database updates.',
+    ],
+    github: null,
+    demo: null,
+    featured: true,
+  },
+  {
+    id: 'pacman-battler',
+    name: 'Pacman Battler',
+    date: 'Jan 2024 – May 2024',
+    description: 'RL simulation framework where agents compete using custom reward functions.',
+    tags: ['Python', 'PyTorch', 'NumPy', 'Reinforcement Learning'],
+    bullets: [
+      'Built Python simulation framework where reinforcement learning agents competed using custom reward functions.',
+      'Implemented agent logic with finite-state machines and trained models using PyTorch + NumPy.',
+      'Applied RL evaluation techniques to benchmark win rates and refine through reward shaping and environment tuning.',
+    ],
+    github: null,
+    demo: null,
+    featured: true,
+  },
+]

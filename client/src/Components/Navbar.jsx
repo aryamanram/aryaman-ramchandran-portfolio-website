@@ -1,18 +1,20 @@
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
-export default function Navbar() {
+export default function Navbar({ delay = 0 }) {
   const location = useLocation()
 
   const links = [
     { to: '/', label: 'Home' },
+    { to: '/projects', label: 'Projects' },
+    { to: '/resume', label: 'Resume' },
   ]
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50 bg-navy"
     >
       {/* Top accent line */}
@@ -24,18 +26,15 @@ export default function Navbar() {
           <span className="font-display text-[15px] font-semibold tracking-tight text-text-inverse">
             Aryaman Ramchandran
           </span>
-          <span className="text-text-tertiary text-[13px] font-light hidden sm:inline">
-            |
-          </span>
-          <span className="text-text-tertiary text-[13px] hidden sm:inline">
-            Portfolio
-          </span>
         </Link>
 
         {/* Nav Links */}
         <ul className="flex items-center gap-1 list-none m-0 p-0">
           {links.map(({ to, label }) => {
-            const isActive = location.pathname === to
+            const isActive =
+              to === '/'
+                ? location.pathname === '/'
+                : location.pathname.startsWith(to)
 
             return (
               <li key={to}>
