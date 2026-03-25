@@ -1,14 +1,24 @@
-import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Github, Linkedin, Mail, ArrowRight, Check } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import SectionHeading from '../Components/SectionHeading'
 import ProjectCard from '../Components/ProjectCard'
 import { projects } from '../data/projects'
 
+const EMAIL = 'aryamanramchandran@gmail.com'
 const featured = projects.filter((p) => p.featured)
 
 export default function Home() {
+  const [copied, setCopied] = useState(false)
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(EMAIL).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
   return (
     <>
       <Navbar delay={2.2} />
@@ -43,12 +53,27 @@ export default function Home() {
             <a href="https://github.com/aryamanram" target="_blank" rel="noopener noreferrer" className="text-text-tertiary hover:text-text transition-colors duration-150">
               <Github size={18} />
             </a>
-            <a href="https://linkedin.com/in/aryamanramchandran" target="_blank" rel="noopener noreferrer" className="text-text-tertiary hover:text-text transition-colors duration-150">
+            <a href="https://www.linkedin.com/in/aryaman-ramchandran/" target="_blank" rel="noopener noreferrer" className="text-text-tertiary hover:text-text transition-colors duration-150">
               <Linkedin size={18} />
             </a>
-            <a href="mailto:aryaman@example.com" className="text-text-tertiary hover:text-text transition-colors duration-150">
-              <Mail size={18} />
-            </a>
+            <span className="relative">
+              <button onClick={copyEmail} className="text-text-tertiary hover:text-text transition-colors duration-150 cursor-pointer bg-transparent border-none p-0">
+                {copied ? <Check size={18} /> : <Mail size={18} />}
+              </button>
+              <AnimatePresence>
+                {copied && (
+                  <motion.span
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 text-[11px] text-text-secondary bg-surface border border-border rounded px-2 py-1 whitespace-nowrap pointer-events-none"
+                  >
+                    Copied!
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </span>
           </motion.div>
         </div>
       </section>
@@ -113,13 +138,13 @@ export default function Home() {
             I'm always open to discussing new opportunities, research, or interesting projects.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a
-              href="mailto:aryaman@example.com"
-              className="inline-flex items-center gap-2 text-sm font-medium text-text no-underline bg-bg px-4 py-2 rounded border border-border hover:border-accent/30 hover:bg-accent-light transition-colors duration-150"
+            <button
+              onClick={copyEmail}
+              className="inline-flex items-center gap-2 text-sm font-medium text-text bg-bg px-4 py-2 rounded border border-border hover:border-accent/30 hover:bg-accent-light transition-colors duration-150 cursor-pointer"
             >
-              <Mail size={14} />
-              Email
-            </a>
+              {copied ? <Check size={14} /> : <Mail size={14} />}
+              {copied ? 'Copied!' : 'Email'}
+            </button>
             <a
               href="https://github.com/aryamanram"
               target="_blank"
@@ -130,7 +155,7 @@ export default function Home() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/aryamanramchandran"
+              href="https://www.linkedin.com/in/aryaman-ramchandran/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium text-text no-underline bg-bg px-4 py-2 rounded border border-border hover:border-accent/30 hover:bg-accent-light transition-colors duration-150"
