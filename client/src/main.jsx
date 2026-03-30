@@ -1,21 +1,38 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './index.css'
-import Home from './pages/Home'
-import Resume from './pages/Resume'
-import Projects from './pages/Projects'
-import ProjectDetail from './pages/ProjectDetail'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
 
-createRoot(document.getElementById('root')).render(
+import RootLayout from "./layouts/RootLayout";
+import Home from "./pages/Home";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      // Placeholder routes — pages will be built next
+      { path: "about", element: <PlaceholderPage title="About" /> },
+      { path: "projects", element: <PlaceholderPage title="Projects" /> },
+      { path: "experience", element: <PlaceholderPage title="Experience" /> },
+      { path: "resume", element: <PlaceholderPage title="Resume" /> },
+    ],
+  },
+]);
+
+function PlaceholderPage({ title }) {
+  return (
+    <div className="min-h-screen flex items-center justify-center pt-12">
+      <h1 className="text-4xl font-semibold tracking-tight text-primary">
+        {title}
+      </h1>
+    </div>
+  );
+}
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/:id" element={<ProjectDetail />} />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </StrictMode>
-)
+);

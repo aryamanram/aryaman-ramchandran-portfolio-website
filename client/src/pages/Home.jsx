@@ -1,178 +1,261 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Github, Linkedin, Mail, ArrowRight, Check } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import Navbar from '../Components/Navbar'
-import SectionHeading from '../Components/SectionHeading'
-import ProjectCard from '../Components/ProjectCard'
-import { projects } from '../data/projects'
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { ArrowDown } from "lucide-react";
 
-const EMAIL = 'aryamanramchandran@gmail.com'
-const featured = projects.filter((p) => p.featured)
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
 
 export default function Home() {
-  const [copied, setCopied] = useState(false)
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(EMAIL).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
-  }
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.97]);
+  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
+
   return (
     <>
-      <Navbar delay={2.2} />
+      {/* Hero Section */}
+      <motion.section
+        ref={heroRef}
+        style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
+        className="relative min-h-screen flex flex-col items-center justify-center px-6"
+      >
+        {/* Subtle gradient orb - Apple-style ambient background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-blue-100/40 via-purple-50/20 to-transparent blur-3xl" />
+        </div>
 
-      {/* Hero */}
-      <section className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 2, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-text"
-          >
-            Aryaman Ramchandran
-          </motion.h1>
-
+        <div className="relative text-center max-w-3xl">
+          {/* Greeting */}
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 2.8, ease: 'easeOut' }}
-            className="mt-4 text-text-secondary text-base sm:text-lg max-w-md mx-auto leading-relaxed"
+            custom={0}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="text-secondary text-sm tracking-widest uppercase mb-4"
           >
-            Computer Scientist &middot; MS @ UIUC
+            Software Engineer
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 3.2, ease: 'easeOut' }}
-            className="mt-6 flex items-center justify-center gap-4"
+          {/* Name - Apple-style large, thin headline */}
+          <motion.h1
+            custom={0.1}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-[-0.03em] leading-[1.05] text-primary"
           >
-            <a href="https://github.com/aryamanram" target="_blank" rel="noopener noreferrer" className="text-text-tertiary hover:text-text transition-colors duration-150">
-              <Github size={18} />
-            </a>
-            <a href="https://www.linkedin.com/in/aryaman-ramchandran/" target="_blank" rel="noopener noreferrer" className="text-text-tertiary hover:text-text transition-colors duration-150">
-              <Linkedin size={18} />
-            </a>
-            <span className="relative">
-              <button onClick={copyEmail} className="text-text-tertiary hover:text-text transition-colors duration-150 cursor-pointer bg-transparent border-none p-0">
-                {copied ? <Check size={18} /> : <Mail size={18} />}
-              </button>
-              <AnimatePresence>
-                {copied && (
-                  <motion.span
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 text-[11px] text-text-secondary bg-surface border border-border rounded px-2 py-1 whitespace-nowrap pointer-events-none"
-                  >
-                    Copied!
-                  </motion.span>
-                )}
-              </AnimatePresence>
+            Aryaman
+            <br />
+            <span className="bg-gradient-to-r from-primary via-gray-600 to-secondary bg-clip-text text-transparent">
+              Ramchandran
             </span>
+          </motion.h1>
+
+          {/* Tagline */}
+          <motion.p
+            custom={0.25}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="mt-6 text-lg sm:text-xl text-secondary max-w-xl mx-auto leading-relaxed font-light"
+          >
+            MS Computer Science @ UIUC. Building at the intersection of
+            systems, machine learning, and elegant software.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            custom={0.4}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="mt-10 flex items-center justify-center gap-4"
+          >
+            <a
+              href="/projects"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-white text-sm font-medium no-underline hover:bg-gray-800 transition-all duration-300"
+            >
+              Explore Projects
+            </a>
+            <a
+              href="/resume"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-border text-primary text-sm font-medium no-underline hover:bg-surface-alt transition-all duration-300"
+            >
+              View Resume
+            </a>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div
+            custom={0.55}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="mt-8 flex items-center justify-center gap-6"
+          >
+            {[
+              { label: "GitHub", href: "https://github.com/aryamanramchandran" },
+              { label: "LinkedIn", href: "https://linkedin.com/in/aryamanramchandran" },
+            ].map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary hover:text-primary text-sm transition-colors duration-300 no-underline"
+              >
+                {label}
+              </a>
+            ))}
           </motion.div>
         </div>
-      </section>
 
-      {/* About */}
-      <section className="px-6 py-20 max-w-3xl mx-auto">
-        <SectionHeading title="About" />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-surface border border-border rounded-lg p-6"
-        >
-          <p className="text-sm text-text-secondary leading-relaxed">
-            I'm a computer scientist pursuing my Master's at the University of Illinois at Urbana-Champaign.
-            My interests span systems programming, machine learning, and full-stack development. I enjoy building
-            tools that are both technically sound and well-crafted.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* Featured Projects */}
-      <section className="px-6 py-20 max-w-3xl mx-auto">
-        <SectionHeading
-          title="Projects"
-          subtitle="Selected work"
-        />
-        <div className="grid gap-4 sm:grid-cols-2">
-          {featured.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
-        </div>
+        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-6"
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="absolute bottom-10"
         >
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-1.5 text-sm text-blue font-medium no-underline hover:underline"
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            View all projects
-            <ArrowRight size={14} />
-          </Link>
+            <ArrowDown size={16} className="text-secondary" strokeWidth={1.5} />
+          </motion.div>
         </motion.div>
+      </motion.section>
+
+      {/* Intro / About Preview Section */}
+      <section className="py-32 px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.02em] leading-[1.15] text-primary"
+          >
+            Driven by curiosity for{" "}
+            <span className="text-secondary">complex systems</span> and a passion for{" "}
+            <span className="text-secondary">elegant solutions</span>.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.15,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-8 text-lg text-secondary leading-relaxed font-light"
+          >
+            From low-level systems work to full-stack applications, I'm drawn
+            to problems that demand both depth and precision. Currently
+            pursuing my Masters at the University of Illinois Urbana-Champaign,
+            with experience at EA, Turiyam AI, and more.
+          </motion.p>
+
+          <motion.a
+            href="/about"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.3,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="inline-flex items-center gap-1 mt-8 text-accent text-sm font-medium no-underline hover:underline underline-offset-4"
+          >
+            Learn more about me
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </motion.a>
+        </div>
       </section>
 
-      {/* Contact */}
-      <section className="px-6 py-20 max-w-3xl mx-auto">
-        <SectionHeading title="Contact" />
+      {/* Highlights / Stats Strip */}
+      <section className="py-20 bg-surface-alt">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-0 sm:divide-x sm:divide-border">
+            {[
+              { number: "4.0", label: "GPA at UIUC" },
+              { number: "4+", label: "Years of Experience" },
+              { number: "10+", label: "Personal Projects" },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.6,
+                  delay: i * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="text-center px-8"
+              >
+                <p className="text-4xl sm:text-5xl font-semibold tracking-tight text-primary">
+                  {stat.number}
+                </p>
+                <p className="mt-2 text-sm text-secondary tracking-wide">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer teaser */}
+      <section className="py-32 px-6 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="text-3xl sm:text-5xl font-semibold tracking-[-0.02em] text-primary"
+        >
+          See what I've been working on.
+        </motion.h2>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-surface border border-border rounded-lg p-6"
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.6,
+            delay: 0.15,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mt-8"
         >
-          <p className="text-sm text-text-secondary leading-relaxed mb-4">
-            I'm always open to discussing new opportunities, research, or interesting projects.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={copyEmail}
-              className="inline-flex items-center gap-2 text-sm font-medium text-text bg-bg px-4 py-2 rounded border border-border hover:border-accent/30 hover:bg-accent-light transition-colors duration-150 cursor-pointer"
-            >
-              {copied ? <Check size={14} /> : <Mail size={14} />}
-              {copied ? 'Copied!' : 'Email'}
-            </button>
-            <a
-              href="https://github.com/aryamanram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-text no-underline bg-bg px-4 py-2 rounded border border-border hover:border-accent/30 hover:bg-accent-light transition-colors duration-150"
-            >
-              <Github size={14} />
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/aryaman-ramchandran/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-text no-underline bg-bg px-4 py-2 rounded border border-border hover:border-accent/30 hover:bg-accent-light transition-colors duration-150"
-            >
-              <Linkedin size={14} />
-              LinkedIn
-            </a>
-          </div>
+          <a
+            href="/projects"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent text-white text-sm font-medium no-underline hover:bg-accent-hover transition-all duration-300"
+          >
+            Browse Projects
+          </a>
         </motion.div>
       </section>
-
-      {/* Footer */}
-      <footer className="px-6 py-8 border-t border-border-light">
-        <p className="text-center text-[12px] text-text-tertiary">
-          Aryaman Ramchandran &middot; {new Date().getFullYear()}
-        </p>
-      </footer>
     </>
-  )
+  );
 }
