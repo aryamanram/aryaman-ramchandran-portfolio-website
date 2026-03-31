@@ -22,24 +22,29 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-white/80 backdrop-blur-xl shadow-[0_0.5px_0_0_rgba(0,0,0,0.08)]"
-          : "bg-transparent"
-      }`}
+    <nav
+      className="fixed top-0 left-0 right-0 z-50"
+      style={{
+        backdropFilter: "blur(20px) saturate(1.5)",
+        WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+        backgroundColor: scrolled
+          ? "rgba(255, 255, 255, 0.55)"
+          : "rgba(255, 255, 255, 0.3)",
+        boxShadow: scrolled ? "0 0.5px 0 0 rgba(0,0,0,0.1)" : "none",
+        transition: "background-color 0.5s, box-shadow 0.5s",
+      }}
     >
-      <div className="mx-auto max-w-[1200px] px-6 flex items-center justify-between h-12">
-        {/* Logo / Name */}
+      <motion.div
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="mx-auto max-w-[1200px] px-6 flex items-center justify-between h-12"
+      >
         <Link
           to="/"
           className="text-[13px] font-semibold tracking-tight text-primary no-underline hover:opacity-70 transition-opacity duration-300"
@@ -47,7 +52,6 @@ export default function Navbar() {
           AR.
         </Link>
 
-        {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
@@ -71,7 +75,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden bg-transparent border-none text-primary cursor-pointer p-1"
@@ -79,9 +82,8 @@ export default function Navbar() {
         >
           {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
-      </div>
+      </motion.div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -89,7 +91,10 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden bg-white/95 backdrop-blur-2xl border-t border-border overflow-hidden"
+            className="md:hidden overflow-hidden"
+            style={{
+              borderTop: "1px solid rgba(255,255,255,0.2)",
+            }}
           >
             <div className="px-6 py-4 flex flex-col gap-1">
               {navLinks.map((link, i) => (
@@ -115,6 +120,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }

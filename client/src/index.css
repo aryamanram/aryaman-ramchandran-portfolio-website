@@ -14,31 +14,25 @@
   --color-border: #d2d2d7;
 }
 
-/* Base resets */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Tailwind v4 Preflight handles box-sizing/margin resets already */
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  font-family: var(--font-sans);
-  color: var(--color-primary);
-  background-color: var(--color-surface);
-  line-height: 1.5;
-  overflow-x: hidden;
-}
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-primary);
+    background-color: var(--color-surface);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
 
-/* Selection color */
-::selection {
-  background-color: var(--color-accent);
-  color: white;
+  ::selection {
+    background-color: var(--color-accent);
+    color: white;
+  }
 }

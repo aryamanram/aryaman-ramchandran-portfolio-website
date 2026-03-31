@@ -1,10 +1,12 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Resume from "./pages/Resume";
+import Experience from "./pages/Experience";
 
 const router = createBrowserRouter([
   {
@@ -13,10 +15,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       // Placeholder routes — pages will be built next
-      { path: "about", element: <PlaceholderPage title="About" /> },
+      { path: "about", element: <About /> },
       { path: "projects", element: <PlaceholderPage title="Projects" /> },
-      { path: "experience", element: <PlaceholderPage title="Experience" /> },
-      { path: "resume", element: <PlaceholderPage title="Resume" /> },
+      { path: "experience", element: <Experience /> },
+      { path: "resume", element: <Resume /> },
     ],
   },
 ]);
@@ -32,7 +34,5 @@ function PlaceholderPage({ title }) {
 }
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  <RouterProvider router={router} />
 );

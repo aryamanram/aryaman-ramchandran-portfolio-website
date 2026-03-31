@@ -88,13 +88,13 @@ export default function Home() {
           >
             <a
               href="/projects"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-white text-sm font-medium no-underline hover:bg-gray-800 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-9 py-3.5 rounded-full bg-primary text-white text-sm font-medium no-underline hover:bg-gray-800 transition-all duration-300"
             >
               Explore Projects
             </a>
             <a
               href="/resume"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-border text-primary text-sm font-medium no-underline hover:bg-surface-alt transition-all duration-300"
+              className="inline-flex items-center gap-2 px-9 py-3.5 rounded-full border border-border text-primary text-sm font-medium no-underline hover:bg-surface-alt transition-all duration-300"
             >
               View Resume
             </a>
@@ -109,8 +109,8 @@ export default function Home() {
             className="mt-8 flex items-center justify-center gap-6"
           >
             {[
-              { label: "GitHub", href: "https://github.com/aryamanramchandran" },
-              { label: "LinkedIn", href: "https://linkedin.com/in/aryamanramchandran" },
+              { label: "GitHub", href: "https://github.com/aryamanram" },
+              { label: "LinkedIn", href: "https://linkedin.com/in/aryaman-ramchandran" },
             ].map(({ label, href }) => (
               <a
                 key={label}
@@ -128,21 +128,23 @@ export default function Home() {
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: 0.6 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="absolute bottom-10"
+          className="absolute bottom-12 flex flex-col items-center gap-2"
         >
+          <motion.span className="text-secondary text-[11px] tracking-[0.2em] uppercase">
+            Scroll
+          </motion.span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ArrowDown size={16} className="text-secondary" strokeWidth={1.5} />
-          </motion.div>
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="w-[1px] h-6 bg-secondary/50 origin-top"
+          />
         </motion.div>
       </motion.section>
 
       {/* Intro / About Preview Section */}
-      <section className="py-32 px-6">
+      <section className="py-40 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 40 }}
@@ -165,7 +167,7 @@ export default function Home() {
               delay: 0.15,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mt-8 text-lg text-secondary leading-relaxed font-light"
+            className="mt-10 text-lg text-secondary leading-relaxed font-light"
           >
             From low-level systems work to full-stack applications, I'm drawn
             to problems that demand both depth and precision. Currently
@@ -183,7 +185,7 @@ export default function Home() {
               delay: 0.3,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="inline-flex items-center gap-1 mt-8 text-accent text-sm font-medium no-underline hover:underline underline-offset-4"
+            className="inline-flex items-center gap-1 mt-10 text-accent text-sm font-medium no-underline hover:underline underline-offset-4"
           >
             Learn more about me
             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
@@ -194,7 +196,7 @@ export default function Home() {
       </section>
 
       {/* Highlights / Stats Strip */}
-      <section className="py-20 bg-surface-alt">
+      <section className="py-28 bg-surface-alt">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-0 sm:divide-x sm:divide-border">
             {[
@@ -217,7 +219,7 @@ export default function Home() {
                 <p className="text-4xl sm:text-5xl font-semibold tracking-tight text-primary">
                   {stat.number}
                 </p>
-                <p className="mt-2 text-sm text-secondary tracking-wide">
+                <p className="mt-3 text-sm text-secondary tracking-wide">
                   {stat.label}
                 </p>
               </motion.div>
@@ -227,7 +229,7 @@ export default function Home() {
       </section>
 
       {/* Footer teaser */}
-      <section className="py-32 px-6 text-center">
+      <section className="py-40 px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -246,11 +248,11 @@ export default function Home() {
             delay: 0.15,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="mt-8"
+          className="mt-10"
         >
           <a
             href="/projects"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent text-white text-sm font-medium no-underline hover:bg-accent-hover transition-all duration-300"
+            className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-accent text-white text-sm font-medium no-underline hover:bg-accent-hover transition-all duration-300"
           >
             Browse Projects
           </a>
